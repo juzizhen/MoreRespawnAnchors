@@ -13,7 +13,7 @@ Requires the Fabric API.
 ### Description:
 
 Mod originally created by **@cominixo** .
-mc mod for auto fishing.  Supports both Forge and Fabric.
+mc mod for more respawn anchors.  Supports both Forge and Fabric.
 
 ### Disclaimer:
 
