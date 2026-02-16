@@ -7,7 +7,8 @@ Requires the Fabric API.
 ![](https://i.imgur.com/4ZJdfdk.png)
 
 - [Original Mod Download](https://www.curseforge.com/minecraft/mc-mods/more-respawn-anchors)
-- [This Mod Download](https://www.curseforge.com/minecraft/mc-mods/more-respawn-anchors-remastered)
+- [This Mod Download (CurseForge)](https://www.curseforge.com/minecraft/mc-mods/more-respawn-anchors-remastered)
+- [This Mod Download (Modrinth)](https://modrinth.com/mod/more-respawn-anchors-remastered)
 
 ### Description:
 
