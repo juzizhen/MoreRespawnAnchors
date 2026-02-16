@@ -41,7 +41,11 @@ public class MoreRespawnAnchors implements ModInitializer {
             new Identifier("morerespawnanchors", "general"),
             FabricItemGroup.builder().icon(() -> new ItemStack(NETHERITE_RESPAWN_ANCHOR))
                     .displayName(Text.translatable("itemGroup.morerespawnanchors.general"))
-                    .entries((displayContext, entries) -> entries.add(NETHERITE_RESPAWN_ANCHOR))
+                    .entries((displayContext, entries) -> {
+                        entries.add(NETHERITE_RESPAWN_ANCHOR);
+                        entries.add(END_RESPAWN_ANCHOR);
+                        entries.add(NETHERITE_END_RESPAWN_ANCHOR);
+                    })
                     .build()
     );
     public static BlockEntityType<EndRespawnAnchorBlockEntity> END_RESPAWN_ANCHOR_BLOCK_ENTITY;
