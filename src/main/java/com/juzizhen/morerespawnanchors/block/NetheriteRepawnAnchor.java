@@ -1,4 +1,4 @@
-package me.cominixo.morerespawnanchors.block;
+package com.juzizhen.morerespawnanchors.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

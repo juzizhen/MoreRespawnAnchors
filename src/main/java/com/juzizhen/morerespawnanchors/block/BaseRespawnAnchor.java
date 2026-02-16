@@ -1,4 +1,4 @@
-package me.cominixo.morerespawnanchors.block;
+package com.juzizhen.morerespawnanchors.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -6,17 +6,16 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.IntProperty;
-import net.minecraft.tag.FluidTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -38,17 +37,21 @@ public class BaseRespawnAnchor extends Block {
         super(settings);
     }
 
+    public static int getLightLevelFromState(BlockState state) {
+        final BaseRespawnAnchor anchor = (BaseRespawnAnchor) state.getBlock();
+        return getLightLevel(state.get(anchor.getChargesProperty()), 15, anchor.getMaxCharges());
+    }
+
+    public static int getLightLevel(int chargeState, int maxLevel, float maxCharges) {
+        return MathHelper.floor(chargeState / maxCharges * (float) maxLevel);
+    }
+
     public int getMaxCharges() {
         return 4;
     }
 
     public IntProperty getChargesProperty() {
         return CHARGES;
-    }
-
-    public static int getLightLevelFromState(BlockState state) {
-        final BaseRespawnAnchor anchor = (BaseRespawnAnchor) state.getBlock();
-        return getLightLevel(state.get(anchor.getChargesProperty()), 15, anchor.getMaxCharges());
     }
 
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
@@ -70,22 +73,33 @@ public class BaseRespawnAnchor extends Block {
             }
 
             return ActionResult.success(world.isClient);
+        } else if (isChargeItem(itemStack) && !canCharge(state)) {
+            if (!world.isClient) {
+                this.explode(world, pos);
+                if (!player.getAbilities().creativeMode) {
+                    itemStack.decrement(1);
+                }
+            }
+            return ActionResult.success(world.isClient);
         } else {
             if (!world.isClient) {
                 ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) player;
-                if (serverPlayerEntity.getSpawnPointDimension() != world.getRegistryKey() || !serverPlayerEntity.getSpawnPointPosition().equals(pos)) {
+                if (serverPlayerEntity.getSpawnPointPosition() == null ||
+                        serverPlayerEntity.getSpawnPointDimension() != world.getRegistryKey() ||
+                        !serverPlayerEntity.getSpawnPointPosition().equals(pos)) {
+
                     serverPlayerEntity.setSpawnPoint(world.getRegistryKey(), pos, 0.0F, false, true);
-                    world.playSound(null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, SoundEvents.BLOCK_RESPAWN_ANCHOR_SET_SPAWN, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    world.playSound(null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D,
+                            SoundEvents.BLOCK_RESPAWN_ANCHOR_SET_SPAWN, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     return ActionResult.SUCCESS;
                 }
             }
-
             return ActionResult.CONSUME;
         }
     }
 
     public boolean isDimension(World world) {
-        return world.getDimension().isRespawnAnchorWorking();
+        return world.getDimension().respawnAnchorWorks();
     }
 
     private boolean canCharge(BlockState state) {
@@ -101,13 +115,8 @@ public class BaseRespawnAnchor extends Block {
         world.playSound(null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 1.0F, 1.0F);
     }
 
-
     public boolean hasComparatorOutput(BlockState state) {
         return true;
-    }
-
-    public static int getLightLevel(int chargeState, int maxLevel, float maxCharges) {
-        return MathHelper.floor(chargeState / maxCharges * (float) maxLevel);
     }
 
     public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
@@ -127,7 +136,7 @@ public class BaseRespawnAnchor extends Block {
                 return pos.equals(explodedPos) && bl2 ? Optional.of(Blocks.WATER.getBlastResistance()) : super.getBlastResistance(explosion, world, pos, blockState, fluidState);
             }
         };
-        world.createExplosion(null, DamageSource.badRespawnPoint(), explosionBehavior, (double) explodedPos.getX() + 0.5D, (double) explodedPos.getY() + 0.5D, (double) explodedPos.getZ() + 0.5D, 5.0F, true, Explosion.DestructionType.DESTROY);
+        world.createExplosion(null, world.getDamageSources().badRespawnPoint(explodedPos.toCenterPos()), explosionBehavior, (double) explodedPos.getX() + 0.5D, (double) explodedPos.getY() + 0.5D, (double) explodedPos.getZ() + 0.5D, 5.0F, true, World.ExplosionSourceType.BLOCK);
     }
 
     @Environment(EnvType.CLIENT)

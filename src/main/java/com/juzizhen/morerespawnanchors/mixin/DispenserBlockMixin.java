@@ -1,20 +1,12 @@
-package me.cominixo.morerespawnanchors.mixin;
+package com.juzizhen.morerespawnanchors.mixin;
 
-import me.cominixo.morerespawnanchors.block.dispenser.NewGlowstoneDispenserBehavior;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import com.juzizhen.morerespawnanchors.block.dispenser.NewGlowstoneDispenserBehavior;
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.RespawnAnchorBlock;
 import net.minecraft.block.dispenser.DispenserBehavior;
 import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.math.BlockPointer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

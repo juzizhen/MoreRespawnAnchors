@@ -1,24 +1,13 @@
-package me.cominixo.morerespawnanchors.client.ber;
+package com.juzizhen.morerespawnanchors.client.ber;
 
-import com.google.common.collect.ImmutableList;
-import me.cominixo.morerespawnanchors.block.EndRespawnAnchor;
-import me.cominixo.morerespawnanchors.block.entity.BaseRespawnAnchorBlockEntity;
-import me.cominixo.morerespawnanchors.block.entity.EndRespawnAnchorBlockEntity;
-import net.minecraft.block.entity.EndPortalBlockEntity;
-import net.minecraft.client.render.RenderLayer;
+import com.juzizhen.morerespawnanchors.block.entity.BaseRespawnAnchorBlockEntity;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.EndPortalBlockEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Matrix4f;
-
-import java.util.List;
-import java.util.Random;
-import java.util.stream.IntStream;
+import org.joml.Matrix4f;
 
 public class EndRespawnAnchorBlockEntityRenderer<T extends BaseRespawnAnchorBlockEntity> extends EndPortalBlockEntityRenderer<T> {
 

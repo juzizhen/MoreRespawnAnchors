@@ -1,7 +1,7 @@
-package me.cominixo.morerespawnanchors.client;
+package com.juzizhen.morerespawnanchors.client;
 
-import me.cominixo.morerespawnanchors.MoreRespawnAnchors;
-import me.cominixo.morerespawnanchors.client.ber.EndRespawnAnchorBlockEntityRenderer;
+import com.juzizhen.morerespawnanchors.MoreRespawnAnchors;
+import com.juzizhen.morerespawnanchors.client.ber.EndRespawnAnchorBlockEntityRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

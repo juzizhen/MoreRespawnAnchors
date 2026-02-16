@@ -1,6 +1,6 @@
-package me.cominixo.morerespawnanchors.mixin;
+package com.juzizhen.morerespawnanchors.mixin;
 
-import me.cominixo.morerespawnanchors.block.BaseRespawnAnchor;
+import com.juzizhen.morerespawnanchors.block.BaseRespawnAnchor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RespawnAnchorBlock;
@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
 
-import static me.cominixo.morerespawnanchors.MoreRespawnAnchors.respawnAfterCredits;
+import static com.juzizhen.morerespawnanchors.MoreRespawnAnchors.respawnAfterCredits;
 
 @Mixin(PlayerEntity.class)
 public class PlayerEntityMixin {
@@ -27,13 +27,13 @@ public class PlayerEntityMixin {
         BlockState blockState = world.getBlockState(pos);
         Block block = blockState.getBlock();
 
-
         if (respawnAfterCredits) {
-
             ServerWorld overworld = world.getServer().getWorld(World.OVERWORLD);
-            BlockPos overworldSpawnPos = overworld.getSpawnPos();
-            respawnAfterCredits = false;
-            cir.setReturnValue(Optional.of(new Vec3d(overworldSpawnPos.getX(), overworldSpawnPos.getY(), overworldSpawnPos.getZ())));
+            if (overworld != null) {
+                BlockPos overworldSpawnPos = overworld.getSpawnPos();
+                respawnAfterCredits = false;
+                cir.setReturnValue(Optional.of(new Vec3d(overworldSpawnPos.getX(), overworldSpawnPos.getY(), overworldSpawnPos.getZ())));
+            }
         }
 
         else if (block instanceof BaseRespawnAnchor) {

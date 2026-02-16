@@ -1,4 +1,4 @@
-package me.cominixo.morerespawnanchors.mixin;
+package com.juzizhen.morerespawnanchors.mixin;
 
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.GameStateChangeS2CPacket;
@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static me.cominixo.morerespawnanchors.MoreRespawnAnchors.respawnAfterCredits;
+import static com.juzizhen.morerespawnanchors.MoreRespawnAnchors.respawnAfterCredits;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public class ClientPlayNetworkHandlerMixin {

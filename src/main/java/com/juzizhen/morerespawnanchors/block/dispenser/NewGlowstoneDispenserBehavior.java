@@ -1,8 +1,8 @@
-package me.cominixo.morerespawnanchors.block.dispenser;
+package com.juzizhen.morerespawnanchors.block.dispenser;
 
-import me.cominixo.morerespawnanchors.block.BaseRespawnAnchor;
-import me.cominixo.morerespawnanchors.block.EndRespawnAnchor;
-import me.cominixo.morerespawnanchors.block.NetheriteEndRespawnAnchor;
+import com.juzizhen.morerespawnanchors.block.BaseRespawnAnchor;
+import com.juzizhen.morerespawnanchors.block.EndRespawnAnchor;
+import com.juzizhen.morerespawnanchors.block.NetheriteEndRespawnAnchor;
 import net.minecraft.block.*;
 import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
 import net.minecraft.item.ItemStack;
@@ -20,8 +20,7 @@ public class NewGlowstoneDispenserBehavior extends FallibleItemDispenserBehavior
         BlockState blockState = world.getBlockState(blockPos);
         Block block = blockState.getBlock();
         this.setSuccess(true);
-        if (block instanceof BaseRespawnAnchor && !(block instanceof EndRespawnAnchor) && !(block instanceof NetheriteEndRespawnAnchor)) {
-            BaseRespawnAnchor respawnAnchor = (BaseRespawnAnchor) block;
+        if (block instanceof BaseRespawnAnchor respawnAnchor && !(block instanceof EndRespawnAnchor) && !(block instanceof NetheriteEndRespawnAnchor)) {
             if (blockState.get(respawnAnchor.getChargesProperty()) != respawnAnchor.getMaxCharges()) {
                 respawnAnchor.charge(world, blockPos, blockState);
                 stack.decrement(1);
@@ -33,16 +32,16 @@ public class NewGlowstoneDispenserBehavior extends FallibleItemDispenserBehavior
         }
         else if (blockState.isOf(Blocks.RESPAWN_ANCHOR)) {
             if (blockState.get(RespawnAnchorBlock.CHARGES) != 4) {
-                RespawnAnchorBlock.charge(world, blockPos, blockState);
+                RespawnAnchorBlock.charge(null, world, blockPos, blockState);
                 stack.decrement(1);
             } else {
                 this.setSuccess(false);
             }
-
             return stack;
         } else {
             return super.dispenseSilently(pointer, stack);
         }
+
     }
 
 }

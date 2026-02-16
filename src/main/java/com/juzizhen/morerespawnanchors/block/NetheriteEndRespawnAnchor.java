@@ -1,17 +1,24 @@
-package me.cominixo.morerespawnanchors.block;
+package com.juzizhen.morerespawnanchors.block;
 
-import me.cominixo.morerespawnanchors.block.entity.EndRespawnAnchorBlockEntity;
-import net.minecraft.block.*;
+
+import com.juzizhen.morerespawnanchors.block.entity.NetheriteEndRespawnAnchorBlockEntity;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class EndRespawnAnchor extends BaseRespawnAnchor implements BlockEntityProvider {
-    public EndRespawnAnchor(Settings settings) {
+public class NetheriteEndRespawnAnchor extends BaseRespawnAnchor implements BlockEntityProvider {
+
+    public static final IntProperty CHARGES = IntProperty.of("charges", 0, 12);
+
+    public NetheriteEndRespawnAnchor(Settings settings) {
         super(settings);
         setDefaultState(this.getDefaultState().with(getChargesProperty(), 0));
     }
@@ -27,13 +34,24 @@ public class EndRespawnAnchor extends BaseRespawnAnchor implements BlockEntityPr
     }
 
     @Override
+    public IntProperty getChargesProperty() {
+        return CHARGES;
+    }
+
+    @Override
+    public int getMaxCharges() {
+        return 12;
+    }
+
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(getChargesProperty());
     }
 
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new EndRespawnAnchorBlockEntity(pos, state, getChargesProperty());
+        return new NetheriteEndRespawnAnchorBlockEntity(pos, state, getChargesProperty());
     }
+
 
 }

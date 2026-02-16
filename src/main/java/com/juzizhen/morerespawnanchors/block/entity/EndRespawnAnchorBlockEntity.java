@@ -1,6 +1,6 @@
-package me.cominixo.morerespawnanchors.block.entity;
+package com.juzizhen.morerespawnanchors.block.entity;
 
-import me.cominixo.morerespawnanchors.MoreRespawnAnchors;
+import com.juzizhen.morerespawnanchors.MoreRespawnAnchors;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
