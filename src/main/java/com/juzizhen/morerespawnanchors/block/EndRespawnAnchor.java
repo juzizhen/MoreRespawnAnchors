@@ -35,5 +35,4 @@ public class EndRespawnAnchor extends BaseRespawnAnchor implements BlockEntityPr
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new EndRespawnAnchorBlockEntity(pos, state, getChargesProperty());
     }
-
 }

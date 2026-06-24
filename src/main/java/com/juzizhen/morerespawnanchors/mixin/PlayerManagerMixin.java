@@ -20,7 +20,6 @@ import java.util.Optional;
 
 @Mixin(PlayerManager.class)
 public class PlayerManagerMixin {
-
     @Inject(method = "respawnPlayer", at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
     public void playDepletedSound(ServerPlayerEntity player, boolean alive, CallbackInfoReturnable<ServerPlayerEntity> cir,
                                   BlockPos blockPos, float f, boolean bl, ServerWorld serverWorld,
@@ -41,5 +40,4 @@ public class PlayerManagerMixin {
             }
         }
     }
-
 }

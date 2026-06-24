@@ -16,8 +16,5 @@ public class BaseRespawnAnchorBlockEntity extends EndPortalBlockEntity {
     public BaseRespawnAnchorBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState, IntProperty charges) {
         super(blockEntityType, blockPos, blockState);
         this.charges = charges;
-
     }
-
-
 }

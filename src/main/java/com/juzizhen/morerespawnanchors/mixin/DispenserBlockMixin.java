@@ -19,7 +19,6 @@ import java.util.Map;
 @Mixin(DispenserBlock.class)
 public abstract class DispenserBlockMixin {
     @Shadow @Final private static Map<Item, DispenserBehavior> BEHAVIORS;
-
     @Inject(method = "registerBehavior", at = @At("HEAD"), cancellable = true)
     private static void overwriteGlowstoneBehavior(ItemConvertible provider, DispenserBehavior behavior, CallbackInfo ci) {
         if (provider.asItem() == Items.GLOWSTONE) {

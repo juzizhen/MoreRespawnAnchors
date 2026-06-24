@@ -13,7 +13,6 @@ import net.minecraft.client.render.RenderLayer;
 public class MoreRespawnAnchorsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),MoreRespawnAnchors.END_RESPAWN_ANCHOR);
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),MoreRespawnAnchors.NETHERITE_END_RESPAWN_ANCHOR);
         BlockEntityRendererRegistry.INSTANCE.register(MoreRespawnAnchors.END_RESPAWN_ANCHOR_BLOCK_ENTITY, EndRespawnAnchorBlockEntityRenderer::new);

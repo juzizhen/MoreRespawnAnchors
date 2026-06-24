@@ -28,5 +28,4 @@ public class NetheriteRepawnAnchor extends BaseRespawnAnchor {
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(getChargesProperty());
     }
-
 }

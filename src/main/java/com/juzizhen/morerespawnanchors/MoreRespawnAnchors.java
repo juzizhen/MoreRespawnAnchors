@@ -28,13 +28,13 @@ import net.minecraft.world.World;
 
 public class MoreRespawnAnchors implements ModInitializer {
 
-    public static final NetheriteRepawnAnchor NETHERITE_RESPAWN_ANCHOR = new NetheriteRepawnAnchor(FabricBlockSettings.of().mapColor(MapColor.STONE_GRAY).requiresTool().strength(50.0F, 1200.0F)
+    public static final NetheriteRepawnAnchor NETHERITE_RESPAWN_ANCHOR = new NetheriteRepawnAnchor(FabricBlockSettings.create().mapColor(MapColor.STONE_GRAY).requiresTool().strength(50.0F, 1200.0F)
             .luminance(BaseRespawnAnchor::getLightLevelFromState));
 
-    public static final EndRespawnAnchor END_RESPAWN_ANCHOR = new EndRespawnAnchor(FabricBlockSettings.of().mapColor(MapColor.STONE_GRAY).requiresTool().strength(50.0F, 1200.0F)
+    public static final EndRespawnAnchor END_RESPAWN_ANCHOR = new EndRespawnAnchor(FabricBlockSettings.create().mapColor(MapColor.STONE_GRAY).requiresTool().strength(50.0F, 1200.0F)
             .luminance(BaseRespawnAnchor::getLightLevelFromState));
 
-    public static final NetheriteEndRespawnAnchor NETHERITE_END_RESPAWN_ANCHOR = new NetheriteEndRespawnAnchor(FabricBlockSettings.of().mapColor(MapColor.STONE_GRAY).requiresTool().strength(50.0F, 1200.0F)
+    public static final NetheriteEndRespawnAnchor NETHERITE_END_RESPAWN_ANCHOR = new NetheriteEndRespawnAnchor(FabricBlockSettings.create().mapColor(MapColor.STONE_GRAY).requiresTool().strength(50.0F, 1200.0F)
             .luminance(BaseRespawnAnchor::getLightLevelFromState));
     public static final ItemGroup ITEM_GROUP = Registry.register(
             Registries.ITEM_GROUP,
@@ -54,7 +54,6 @@ public class MoreRespawnAnchors implements ModInitializer {
 
     @Override
     public void onInitialize() {
-
         Registry.register(Registries.BLOCK, new Identifier("morerespawnanchors", "netherite_respawn_anchor"),
                 NETHERITE_RESPAWN_ANCHOR);
         Registry.register(Registries.ITEM, new Identifier("morerespawnanchors", "netherite_respawn_anchor"),
@@ -99,7 +98,5 @@ public class MoreRespawnAnchors implements ModInitializer {
                 }
             }
         });
-
-
     }
 }

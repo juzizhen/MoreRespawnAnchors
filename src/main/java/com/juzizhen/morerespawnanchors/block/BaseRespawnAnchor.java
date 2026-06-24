@@ -123,7 +123,6 @@ public class BaseRespawnAnchor extends Block {
         return getLightLevel(state.get(getChargesProperty()), 15, getMaxCharges());
     }
 
-
     public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
         return false;
     }
@@ -153,6 +152,4 @@ public class BaseRespawnAnchor extends Block {
             world.addParticle(ParticleTypes.REVERSE_PORTAL, x, y, z, 0.0D, velocityY, 0.0D);
         }
     }
-
-
 }

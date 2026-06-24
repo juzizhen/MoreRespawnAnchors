@@ -41,7 +41,5 @@ public class NewGlowstoneDispenserBehavior extends FallibleItemDispenserBehavior
         } else {
             return super.dispenseSilently(pointer, stack);
         }
-
     }
-
 }

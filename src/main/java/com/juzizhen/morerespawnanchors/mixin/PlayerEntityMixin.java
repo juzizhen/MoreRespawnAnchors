@@ -21,7 +21,6 @@ import static com.juzizhen.morerespawnanchors.MoreRespawnAnchors.respawnAfterCre
 
 @Mixin(PlayerEntity.class)
 public class PlayerEntityMixin {
-
     @Inject(method = "findRespawnPosition", at = @At("RETURN"), cancellable = true)
     private static void addNewAnchors(ServerWorld world, BlockPos pos, float f, boolean bl, boolean bl2, CallbackInfoReturnable<Optional<Vec3d>> cir) {
         BlockState blockState = world.getBlockState(pos);
@@ -35,7 +34,6 @@ public class PlayerEntityMixin {
                 cir.setReturnValue(Optional.of(new Vec3d(overworldSpawnPos.getX(), overworldSpawnPos.getY(), overworldSpawnPos.getZ())));
             }
         }
-
         else if (block instanceof BaseRespawnAnchor) {
             BaseRespawnAnchor respawnAnchor = (BaseRespawnAnchor) block;
             if (blockState.get(respawnAnchor.getChargesProperty()) > 0 && respawnAnchor.isDimension(world)) {
@@ -48,6 +46,4 @@ public class PlayerEntityMixin {
             }
         }
     }
-
-
 }

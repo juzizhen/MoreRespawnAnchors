@@ -1,6 +1,5 @@
 package com.juzizhen.morerespawnanchors.block;
 
-
 import com.juzizhen.morerespawnanchors.block.entity.NetheriteEndRespawnAnchorBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
@@ -52,6 +51,4 @@ public class NetheriteEndRespawnAnchor extends BaseRespawnAnchor implements Bloc
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new NetheriteEndRespawnAnchorBlockEntity(pos, state, getChargesProperty());
     }
-
-
 }

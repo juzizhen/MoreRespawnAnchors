@@ -11,12 +11,10 @@ import static com.juzizhen.morerespawnanchors.MoreRespawnAnchors.respawnAfterCre
 
 @Mixin(ClientPlayNetworkHandler.class)
 public class ClientPlayNetworkHandlerMixin {
-
     @Inject(method = "onGameStateChange", at = @At("HEAD"))
     public void onStateChange(GameStateChangeS2CPacket packet, CallbackInfo ci) {
         if (packet.getReason() == GameStateChangeS2CPacket.GAME_WON) {
             respawnAfterCredits = true;
         }
     }
-
 }

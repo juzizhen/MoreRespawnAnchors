@@ -12,7 +12,6 @@ import static com.juzizhen.morerespawnanchors.MoreRespawnAnchors.respawnAfterCre
 
 @Mixin(ServerPlayerEntity.class)
 public class ServerPlayerEntityMixin {
-
     @Inject(method = "getSpawnPointDimension", at = @At("RETURN"), cancellable = true)
     public void changeSpawnDimension(CallbackInfoReturnable<RegistryKey<World>> cir){
         if (respawnAfterCredits) {
