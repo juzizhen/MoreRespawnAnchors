@@ -27,8 +27,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import net.minecraft.world.explosion.ExplosionBehavior;
 
-import java.util.Optional;
 import net.minecraft.util.math.random.Random;
+
+import java.util.Optional;
 
 public class BaseRespawnAnchor extends Block {
 

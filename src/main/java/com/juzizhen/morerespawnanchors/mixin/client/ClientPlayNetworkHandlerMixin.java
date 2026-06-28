@@ -1,4 +1,4 @@
-package com.juzizhen.morerespawnanchors.mixin;
+package com.juzizhen.morerespawnanchors.mixin.client;
 
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.GameStateChangeS2CPacket;

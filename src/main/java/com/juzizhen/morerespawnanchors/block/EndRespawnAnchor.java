@@ -1,6 +1,6 @@
 package com.juzizhen.morerespawnanchors.block;
 
-import com.juzizhen.morerespawnanchors.block.entity.EndRespawnAnchorBlockEntity;
+import com.juzizhen.morerespawnanchors.blockentity.EndRespawnAnchorBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;

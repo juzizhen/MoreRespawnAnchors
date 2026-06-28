@@ -3,13 +3,12 @@ package com.juzizhen.morerespawnanchors;
 import com.juzizhen.morerespawnanchors.block.BaseRespawnAnchor;
 import com.juzizhen.morerespawnanchors.block.EndRespawnAnchor;
 import com.juzizhen.morerespawnanchors.block.NetheriteEndRespawnAnchor;
-import com.juzizhen.morerespawnanchors.block.NetheriteRepawnAnchor;
-import com.juzizhen.morerespawnanchors.block.entity.EndRespawnAnchorBlockEntity;
-import com.juzizhen.morerespawnanchors.block.entity.NetheriteEndRespawnAnchorBlockEntity;
+import com.juzizhen.morerespawnanchors.block.NetheriteRespawnAnchor;
+import com.juzizhen.morerespawnanchors.blockentity.EndRespawnAnchorBlockEntity;
+import com.juzizhen.morerespawnanchors.blockentity.NetheriteEndRespawnAnchorBlockEntity;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DispenserBlock;
@@ -28,13 +27,13 @@ import net.minecraft.world.World;
 
 public class MoreRespawnAnchors implements ModInitializer {
 
-    public static final NetheriteRepawnAnchor NETHERITE_RESPAWN_ANCHOR = new NetheriteRepawnAnchor(FabricBlockSettings.create().mapColor(MapColor.STONE_GRAY).requiresTool().strength(50.0F, 1200.0F)
+    public static final NetheriteRespawnAnchor NETHERITE_RESPAWN_ANCHOR = new NetheriteRespawnAnchor(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).requiresTool().strength(50.0F, 1200.0F)
             .luminance(BaseRespawnAnchor::getLightLevelFromState));
 
-    public static final EndRespawnAnchor END_RESPAWN_ANCHOR = new EndRespawnAnchor(FabricBlockSettings.create().mapColor(MapColor.STONE_GRAY).requiresTool().strength(50.0F, 1200.0F)
+    public static final EndRespawnAnchor END_RESPAWN_ANCHOR = new EndRespawnAnchor(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).requiresTool().strength(50.0F, 1200.0F)
             .luminance(BaseRespawnAnchor::getLightLevelFromState));
 
-    public static final NetheriteEndRespawnAnchor NETHERITE_END_RESPAWN_ANCHOR = new NetheriteEndRespawnAnchor(FabricBlockSettings.create().mapColor(MapColor.STONE_GRAY).requiresTool().strength(50.0F, 1200.0F)
+    public static final NetheriteEndRespawnAnchor NETHERITE_END_RESPAWN_ANCHOR = new NetheriteEndRespawnAnchor(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).requiresTool().strength(50.0F, 1200.0F)
             .luminance(BaseRespawnAnchor::getLightLevelFromState));
     public static final ItemGroup ITEM_GROUP = Registry.register(
             Registries.ITEM_GROUP,
@@ -70,12 +69,13 @@ public class MoreRespawnAnchors implements ModInitializer {
                 new BlockItem(NETHERITE_END_RESPAWN_ANCHOR, new Item.Settings().fireproof()));
 
         END_RESPAWN_ANCHOR_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of("morerespawnanchors", "end_respawn_anchor"),
-                FabricBlockEntityTypeBuilder.create(EndRespawnAnchorBlockEntity::new, END_RESPAWN_ANCHOR).build(null));
+                BlockEntityType.Builder.create(EndRespawnAnchorBlockEntity::new, END_RESPAWN_ANCHOR).build(null));
 
         NETHERITE_END_RESPAWN_ANCHOR_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of("morerespawnanchors", "netherite_end_respawn_anchor"),
-                FabricBlockEntityTypeBuilder.create(NetheriteEndRespawnAnchorBlockEntity::new, NETHERITE_END_RESPAWN_ANCHOR).build(null));
+                BlockEntityType.Builder.create(NetheriteEndRespawnAnchorBlockEntity::new, NETHERITE_END_RESPAWN_ANCHOR).build(null));
 
         DispenserBlock.registerBehavior(Items.ENDER_PEARL, new FallibleItemDispenserBehavior() {
+            @Override
             public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
                 Direction direction = pointer.state().get(DispenserBlock.FACING);
                 BlockPos blockPos = pointer.pos().offset(direction);

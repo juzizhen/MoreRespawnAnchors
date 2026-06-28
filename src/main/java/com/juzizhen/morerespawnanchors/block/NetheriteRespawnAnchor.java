@@ -5,11 +5,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 
-public class NetheriteRepawnAnchor extends BaseRespawnAnchor {
+public class NetheriteRespawnAnchor extends BaseRespawnAnchor {
 
     public static final IntProperty CHARGES = IntProperty.of("charges", 0, 12);
 
-    public NetheriteRepawnAnchor(Settings settings) {
+    public NetheriteRespawnAnchor(Settings settings) {
         super(settings);
         setDefaultState(this.getDefaultState().with(getChargesProperty(), 0));
     }

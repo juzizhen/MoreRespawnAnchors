@@ -1,6 +1,6 @@
-package com.juzizhen.morerespawnanchors.mixin;
+package com.juzizhen.morerespawnanchors.mixin.dispenser;
 
-import com.juzizhen.morerespawnanchors.block.dispenser.NewGlowstoneDispenserBehavior;
+import com.juzizhen.morerespawnanchors.dispenser.NewGlowstoneDispenserBehavior;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.DispenserBehavior;
 import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
@@ -18,7 +18,8 @@ import java.util.Map;
 
 @Mixin(DispenserBlock.class)
 public abstract class DispenserBlockMixin {
-    @Shadow @Final private static Map<Item, DispenserBehavior> BEHAVIORS;
+    @Shadow @Final
+    public static Map<Item, DispenserBehavior> BEHAVIORS;
     @Inject(method = "registerBehavior", at = @At("HEAD"), cancellable = true)
     private static void overwriteGlowstoneBehavior(ItemConvertible provider, DispenserBehavior behavior, CallbackInfo ci) {
         if (provider.asItem() == Items.GLOWSTONE) {

@@ -1,4 +1,4 @@
-package com.juzizhen.morerespawnanchors.block.entity;
+package com.juzizhen.morerespawnanchors.blockentity;
 
 import com.juzizhen.morerespawnanchors.MoreRespawnAnchors;
 import net.minecraft.block.BlockState;

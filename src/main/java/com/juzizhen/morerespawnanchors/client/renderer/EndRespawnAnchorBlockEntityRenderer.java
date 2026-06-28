@@ -1,6 +1,6 @@
-package com.juzizhen.morerespawnanchors.client.ber;
+package com.juzizhen.morerespawnanchors.client.renderer;
 
-import com.juzizhen.morerespawnanchors.block.entity.BaseRespawnAnchorBlockEntity;
+import com.juzizhen.morerespawnanchors.blockentity.BaseRespawnAnchorBlockEntity;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
@@ -15,6 +15,7 @@ public class EndRespawnAnchorBlockEntityRenderer<T extends BaseRespawnAnchorBloc
         super(ctx);
     }
 
+    @Override
     public void render(T endPortalBlockEntity, float f, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, int j) {
         if (endPortalBlockEntity.getCachedState().get(endPortalBlockEntity.charges) > 0) {
             Matrix4f matrix4f = matrixStack.peek().getPositionMatrix();

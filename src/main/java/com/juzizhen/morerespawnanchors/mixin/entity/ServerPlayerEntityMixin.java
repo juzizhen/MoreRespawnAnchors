@@ -1,4 +1,4 @@
-package com.juzizhen.morerespawnanchors.mixin;
+package com.juzizhen.morerespawnanchors.mixin.entity;
 
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.network.ServerPlayerEntity;

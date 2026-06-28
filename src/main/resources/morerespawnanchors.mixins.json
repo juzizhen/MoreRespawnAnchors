@@ -3,11 +3,13 @@
   "package": "com.juzizhen.morerespawnanchors.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "ClientPlayNetworkHandlerMixin",
-    "DispenserBlockMixin",
-    "PlayerEntityMixin",
-    "PlayerManagerMixin",
-    "ServerPlayerEntityMixin"
+    "dispenser.DispenserBlockMixin",
+    "entity.PlayerEntityMixin",
+    "entity.PlayerManagerMixin",
+    "entity.ServerPlayerEntityMixin"
+  ],
+  "client": [
+    "client.ClientPlayNetworkHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

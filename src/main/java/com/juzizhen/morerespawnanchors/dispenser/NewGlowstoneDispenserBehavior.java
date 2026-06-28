@@ -1,4 +1,4 @@
-package com.juzizhen.morerespawnanchors.block.dispenser;
+package com.juzizhen.morerespawnanchors.dispenser;
 
 import com.juzizhen.morerespawnanchors.block.BaseRespawnAnchor;
 import com.juzizhen.morerespawnanchors.block.EndRespawnAnchor;
@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 
 public class NewGlowstoneDispenserBehavior extends FallibleItemDispenserBehavior {
 
+    @Override
     public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
         Direction direction = pointer.state().get(DispenserBlock.FACING);
         BlockPos blockPos = pointer.pos().offset(direction);

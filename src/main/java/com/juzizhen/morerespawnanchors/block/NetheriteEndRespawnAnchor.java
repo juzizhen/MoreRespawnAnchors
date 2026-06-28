@@ -1,6 +1,6 @@
 package com.juzizhen.morerespawnanchors.block;
 
-import com.juzizhen.morerespawnanchors.block.entity.NetheriteEndRespawnAnchorBlockEntity;
+import com.juzizhen.morerespawnanchors.blockentity.NetheriteEndRespawnAnchorBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;

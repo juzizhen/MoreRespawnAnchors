@@ -1,4 +1,4 @@
-package com.juzizhen.morerespawnanchors.mixin;
+package com.juzizhen.morerespawnanchors.mixin.entity;
 
 import com.juzizhen.morerespawnanchors.block.BaseRespawnAnchor;
 import net.minecraft.block.Block;
@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -23,8 +24,10 @@ import static com.juzizhen.morerespawnanchors.MoreRespawnAnchors.respawnAfterCre
 @Mixin(ServerPlayerEntity.class)
 public class PlayerEntityMixin {
 
+    @Unique
     private static Constructor<?> respawnPosConstructor;
 
+    @Unique
     private static Object createRespawnPos(Vec3d pos, float yaw) {
         try {
             if (respawnPosConstructor == null) {
@@ -49,9 +52,8 @@ public class PlayerEntityMixin {
         }
     }
 
-    @SuppressWarnings("unchecked")
     @Inject(method = "findRespawnPosition", at = @At("RETURN"), cancellable = true)
-    private static void addNewAnchors(ServerWorld world, BlockPos pos, float f, boolean bl, boolean bl2, CallbackInfoReturnable cir) {
+    private static void addNewAnchors(ServerWorld world, BlockPos pos, float f, boolean bl, boolean bl2, CallbackInfoReturnable<Optional<Object>> cir) {
         BlockState blockState = world.getBlockState(pos);
         Block block = blockState.getBlock();
 
@@ -64,8 +66,7 @@ public class PlayerEntityMixin {
                 cir.setReturnValue(Optional.of(createRespawnPos(spawnVec, 0.0F)));
             }
         }
-        else if (block instanceof BaseRespawnAnchor) {
-            BaseRespawnAnchor respawnAnchor = (BaseRespawnAnchor) block;
+        else if (block instanceof BaseRespawnAnchor respawnAnchor) {
             if (blockState.get(respawnAnchor.getChargesProperty()) > 0 && respawnAnchor.isDimension(world)) {
                 Optional<Vec3d> respawnPosition = RespawnAnchorBlock.findRespawnPosition(EntityType.PLAYER, world, pos);
                 if (!bl2 && respawnPosition.isPresent()) {
