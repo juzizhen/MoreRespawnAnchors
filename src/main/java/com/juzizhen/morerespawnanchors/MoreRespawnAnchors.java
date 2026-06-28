@@ -38,7 +38,7 @@ public class MoreRespawnAnchors implements ModInitializer {
             .luminance(BaseRespawnAnchor::getLightLevelFromState));
     public static final ItemGroup ITEM_GROUP = Registry.register(
             Registries.ITEM_GROUP,
-            new Identifier("morerespawnanchors", "general"),
+            Identifier.of("morerespawnanchors", "general"),
             FabricItemGroup.builder().icon(() -> new ItemStack(NETHERITE_RESPAWN_ANCHOR))
                     .displayName(Text.translatable("itemGroup.morerespawnanchors.general"))
                     .entries((displayContext, entries) -> {
@@ -54,32 +54,32 @@ public class MoreRespawnAnchors implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        Registry.register(Registries.BLOCK, new Identifier("morerespawnanchors", "netherite_respawn_anchor"),
+        Registry.register(Registries.BLOCK, Identifier.of("morerespawnanchors", "netherite_respawn_anchor"),
                 NETHERITE_RESPAWN_ANCHOR);
-        Registry.register(Registries.ITEM, new Identifier("morerespawnanchors", "netherite_respawn_anchor"),
+        Registry.register(Registries.ITEM, Identifier.of("morerespawnanchors", "netherite_respawn_anchor"),
                 new BlockItem(NETHERITE_RESPAWN_ANCHOR, new Item.Settings().fireproof()));
 
-        Registry.register(Registries.BLOCK, new Identifier("morerespawnanchors", "end_respawn_anchor"),
+        Registry.register(Registries.BLOCK, Identifier.of("morerespawnanchors", "end_respawn_anchor"),
                 END_RESPAWN_ANCHOR);
-        Registry.register(Registries.ITEM, new Identifier("morerespawnanchors", "end_respawn_anchor"),
+        Registry.register(Registries.ITEM, Identifier.of("morerespawnanchors", "end_respawn_anchor"),
                 new BlockItem(END_RESPAWN_ANCHOR, new Item.Settings()));
 
-        Registry.register(Registries.BLOCK, new Identifier("morerespawnanchors", "netherite_end_respawn_anchor"),
+        Registry.register(Registries.BLOCK, Identifier.of("morerespawnanchors", "netherite_end_respawn_anchor"),
                 NETHERITE_END_RESPAWN_ANCHOR);
-        Registry.register(Registries.ITEM, new Identifier("morerespawnanchors", "netherite_end_respawn_anchor"),
+        Registry.register(Registries.ITEM, Identifier.of("morerespawnanchors", "netherite_end_respawn_anchor"),
                 new BlockItem(NETHERITE_END_RESPAWN_ANCHOR, new Item.Settings().fireproof()));
 
-        END_RESPAWN_ANCHOR_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier("morerespawnanchors", "end_respawn_anchor"),
+        END_RESPAWN_ANCHOR_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of("morerespawnanchors", "end_respawn_anchor"),
                 FabricBlockEntityTypeBuilder.create(EndRespawnAnchorBlockEntity::new, END_RESPAWN_ANCHOR).build(null));
 
-        NETHERITE_END_RESPAWN_ANCHOR_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier("morerespawnanchors", "netherite_end_respawn_anchor"),
+        NETHERITE_END_RESPAWN_ANCHOR_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of("morerespawnanchors", "netherite_end_respawn_anchor"),
                 FabricBlockEntityTypeBuilder.create(NetheriteEndRespawnAnchorBlockEntity::new, NETHERITE_END_RESPAWN_ANCHOR).build(null));
 
         DispenserBlock.registerBehavior(Items.ENDER_PEARL, new FallibleItemDispenserBehavior() {
             public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-                Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
-                BlockPos blockPos = pointer.getPos().offset(direction);
-                World world = pointer.getWorld();
+                Direction direction = pointer.state().get(DispenserBlock.FACING);
+                BlockPos blockPos = pointer.pos().offset(direction);
+                World world = pointer.world();
                 BlockState blockState = world.getBlockState(blockPos);
                 Block block = blockState.getBlock();
                 this.setSuccess(true);

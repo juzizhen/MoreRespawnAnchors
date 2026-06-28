@@ -18,6 +18,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -27,7 +28,7 @@ import net.minecraft.world.explosion.Explosion;
 import net.minecraft.world.explosion.ExplosionBehavior;
 
 import java.util.Optional;
-import java.util.Random;
+import net.minecraft.util.math.random.Random;
 
 public class BaseRespawnAnchor extends Block {
 
@@ -54,31 +55,35 @@ public class BaseRespawnAnchor extends Block {
         return CHARGES;
     }
 
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        ItemStack itemStack = player.getStackInHand(hand);
+    @Override
+    public ItemActionResult onUseWithItem(ItemStack itemStack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (hand == Hand.MAIN_HAND && !isChargeItem(itemStack) && isChargeItem(player.getStackInHand(Hand.OFF_HAND))) {
-            return ActionResult.PASS;
+            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         } else if (isChargeItem(itemStack) && canCharge(state)) {
             charge(world, pos, state);
             if (!player.getAbilities().creativeMode) {
                 itemStack.decrement(1);
             }
-
-            return ActionResult.success(world.isClient);
-        } else if (state.get(getChargesProperty()) == 0) {
-            return ActionResult.PASS;
-        } else if (!isDimension(world)) {
-            if (!world.isClient) {
-                this.explode(world, pos);
-            }
-
-            return ActionResult.success(world.isClient);
+            return ItemActionResult.success(world.isClient);
         } else if (isChargeItem(itemStack) && !canCharge(state)) {
             if (!world.isClient) {
                 this.explode(world, pos);
                 if (!player.getAbilities().creativeMode) {
                     itemStack.decrement(1);
                 }
+            }
+            return ItemActionResult.success(world.isClient);
+        }
+        return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    @Override
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        if (state.get(getChargesProperty()) == 0) {
+            return ActionResult.PASS;
+        } else if (!isDimension(world)) {
+            if (!world.isClient) {
+                this.explode(world, pos);
             }
             return ActionResult.success(world.isClient);
         } else {
@@ -115,15 +120,18 @@ public class BaseRespawnAnchor extends Block {
         world.playSound(null, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 1.0F, 1.0F);
     }
 
+    @Override
     public boolean hasComparatorOutput(BlockState state) {
         return true;
     }
 
+    @Override
     public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
         return getLightLevel(state.get(getChargesProperty()), 15, getMaxCharges());
     }
 
-    public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
+    @Override
+    public boolean canPathfindThrough(BlockState state, NavigationType type) {
         return false;
     }
 
@@ -138,6 +146,7 @@ public class BaseRespawnAnchor extends Block {
         world.createExplosion(null, world.getDamageSources().badRespawnPoint(explodedPos.toCenterPos()), explosionBehavior, (double) explodedPos.getX() + 0.5D, (double) explodedPos.getY() + 0.5D, (double) explodedPos.getZ() + 0.5D, 5.0F, true, World.ExplosionSourceType.BLOCK);
     }
 
+    @Override
     @Environment(EnvType.CLIENT)
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
         if (state.get(getChargesProperty()) != 0) {

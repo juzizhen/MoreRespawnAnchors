@@ -14,9 +14,9 @@ import net.minecraft.world.World;
 public class NewGlowstoneDispenserBehavior extends FallibleItemDispenserBehavior {
 
     public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-        Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
-        BlockPos blockPos = pointer.getPos().offset(direction);
-        World world = pointer.getWorld();
+        Direction direction = pointer.state().get(DispenserBlock.FACING);
+        BlockPos blockPos = pointer.pos().offset(direction);
+        World world = pointer.world();
         BlockState blockState = world.getBlockState(blockPos);
         Block block = blockState.getBlock();
         this.setSuccess(true);

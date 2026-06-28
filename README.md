@@ -17,7 +17,7 @@ mc mod for more respawn anchors.  Supports both Forge and Fabric.
 
 ### Disclaimer:
 
-- I am not the original creator of the mod! I just ported to 1.20.1 Fabric.
+- I am not the original creator of the mod! I just ported to Fabric.
 - The idea, resources (textures, logo…) and most of the code was created by **@cominixo**.
 
 ### License:

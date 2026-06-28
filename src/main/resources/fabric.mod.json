@@ -8,7 +8,9 @@
     "cominixo",
     "juzizhen"
   ],
-  "contact": {},
+  "contact": {
+    "sources": "https://github.com/juzizhen/MoreRespawnAnchors"
+  },
   "license": "LGPL-3.0",
   "environment": "*",
   "entrypoints": {
@@ -23,9 +25,9 @@
     "morerespawnanchors.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.18.4",
-    "fabric": "*",
-    "java": ">=17",
-    "minecraft": "~1.20.1"
+    "fabricloader": ">=0.19.3",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
   }
 }
